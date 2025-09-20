@@ -1,0 +1,64 @@
+Constants
+MDM_PI
+MDM_2PI
+MDM_PI_2
+MDM_PI_4
+MDM_3_2_PI
+MDM_E
+MDM_PIReciprocal
+MDM_THIRD
+MDM_SQRT2
+MDM_SQRT3
+MDM_OneHundredAndEighty
+MDM_1Degree
+MDM_1Radian
+MDM_EPSILON
+MDM_LN2
+MDM_LN10
+
+Function
+Pow(float x, int n);
+Factorial(int x);
+Abs(float x);
+Mod(float x, float y);
+
+Ceil(float x);
+Floor(float x);
+
+Sqrt(float x);
+Rsqrt(float x);
+
+Exp(float x);
+Ln(float x);
+Log2(float x);
+Log10(float x);
+Ldexp(float x, int exponent);
+
+Decompose(float x, int* integer); Break the floating-point number into its decimal and integer parts, returning the decimal part.
+
+Rexp(float x, int* exponent);Decompose the floating point number into the mantissa and exponent parts of IEEE754, returning the mantissa part.
+        
+Sin(float x);
+Cos(float x);
+ArcSin(float x);
+ArcCos(float x);
+ArcTan(float x);
+ArcTan2(float y, float x);Calculate the arctangent of y/x
+Sinh(float x);
+Cosh(float x);
+Tanh(float x);
+
+e^x = sigma x^n / n!
+
+y0 = 1.0f = x^0 / 0!
+y1 = y0 * (x / n + 1) = x^1 / 1! n = 0
+y2 = y1 * (x / n + 1) = x^2 / 2! n = 1
+y3 = y2 * (x / n + 1) = x^3 / 3! n = 2
+......
+
+sinh = x + x^3 / 3! + x^5 / 5! + ...
+
+y0 = x = x ^ 2n - 1 / (2n - 1)! = x ^ 1 / 1!
+y1 = y0 * (x ^ 2) /  2n * (2n + 1) = x ^ 3 / 3!
+y2 = y1 * (x ^ 2) /  2n * (2n + 1) = x ^ 5 / 5!
+......
