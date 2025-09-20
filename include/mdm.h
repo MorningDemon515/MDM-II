@@ -4,6 +4,7 @@
 namespace mdm{
    namespace Common
    {
+      //First Part
         float Pow(float x, int n);
         int Factorial(int x);
         float Abs(float x);
@@ -33,6 +34,35 @@ namespace mdm{
         float Sinh(float x);
         float Cosh(float x);
         float Tanh(float x);
+      
+      //Second Part
+        float Max(float a, float b);
+        float Min(float a, float b);
+        float Hypot(float x, float y);
+
+        float Cbrt(float x);
+        float Expml(float x);
+        float Lnlp(float x);
+
+        float ArSinh(float x);
+        float ArCosh(float x);
+        float ArTanh(float x);
+
+        int Trunc(float x);
+        int Round(float x);
+
+        float PosInf();
+        float NegInf();
+
+        bool Isfinite(float x);
+        bool IsInf(float x);
+        bool IsNaN(float x);
+        bool IsNormal(float x);
+        bool Signbit(float x);
+
+        bool Equal(float a, float b);
+        float ToRadian(float angle);
+        float ToAngle(float radian);
    }
 }
 

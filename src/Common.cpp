@@ -9,6 +9,7 @@
 namespace mdm{
    namespace Common
    {
+    //First Part
         float Pow(float x, int n)
         {
             float result = 1.0f;
@@ -285,6 +286,131 @@ namespace mdm{
         float Tanh(float x)
         {
             return Sinh(x) / Cosh(x);
+        }
+
+        //Second Part
+        float Max(float a, float b)
+        {
+            return (a > b)? a : b;
+        }
+
+        float Min(float a, float b)
+        {
+            return (a < b)? a :b;
+        }
+
+        float Hypot(float x, float y)
+        {
+            return Sqrt(x * x + y * y);
+        }        
+
+        float Cbrt(float x)
+        {
+            long i;
+	        float y;
+
+	        y  = x;
+	        i  = * ( long * ) &y;					 // evil floating point bit level hacking
+	        i  = ( i / 3 ) + 0x2a9f84fe;               // new magic number
+	        y  = * ( float * ) &i;
+            y = MDM_THIRD * (2.0f * y + x / (y*y));// 1st iteration
+            y = MDM_THIRD * (2.0f * y + x / (y*y));// 2nd iteration
+            y = MDM_THIRD * (2.0f * y + x / (y*y));// 3rd iteration
+            y = MDM_THIRD * (2.0f * y + x / (y*y));// 4th iteration
+
+	        return y;
+        }
+
+        float Expml(float x)
+        {
+            return Exp(x) - 1.0f;
+        }
+
+        float Lnlp(float x)
+        {
+            return Ln(1.0f + x);
+        }
+
+        float ArSinh(float x)
+        {
+            return Ln(x + Sqrt(x * x + 1.0f));
+        }
+
+        float ArCosh(float x)
+        {
+            return Ln(x + Sqrt(x * x - 1.0f));
+        }
+
+        float ArTanh(float x)
+        {
+            return 0.5f * Ln((1.0f + x) / (1.0f - x));
+        }
+
+        int Trunc(float x)
+        {
+            return (int)x;
+        }
+
+        int Round(float x)
+        {
+            int temp;
+            float r;
+            r = Decompose(x, &temp);
+            return (r >= 0.5f)? (int)(x + 1.0f) : (int)x;
+        }
+
+        float PosInf()
+        {
+            long long unsigned int pos_inf_bits = 0x7FF0000000000000;
+            double pos_inf = *reinterpret_cast<double*>(&pos_inf_bits);
+            return (float)pos_inf;
+        }
+
+        float NegInf()
+        {
+            long long unsigned int neg_inf_bits = 0xFFF0000000000000;
+            double neg_inf = *reinterpret_cast<double*>(&neg_inf_bits);
+            return (float)neg_inf;
+        }
+
+        bool Isfinite(float x)
+        {
+            return (x != PosInf() && x != NegInf() && x == x)? true : false;
+        }
+
+        bool IsInf(float x)
+        {
+            return (x == PosInf() && x == NegInf()) ? true : false;
+        }
+
+        bool IsNaN(float x)
+        {
+            return x != x;
+        }
+
+        bool IsNormal(float x)
+        {
+            return (Isfinite(x) && x != 0.0f)? true : false;
+        }
+
+        bool Signbit(float x)
+        {
+            return (x < 0.0f)? true : false;
+        }
+
+        bool Equal(float a, float b)
+        {
+            return (Abs(a - b) < MDM_EPSILON)? true : false;
+        }
+
+        float ToRadian(float angle)
+        {
+            return angle * MDM_PI * MDM_OneHundredAndEighty;
+        }
+
+        float ToAngle(float radian)
+        {
+            return radian * 180.0f * MDM_PIReciprocal;
         }
    }
 }
