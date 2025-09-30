@@ -5,7 +5,9 @@ namespace mdm{
    namespace Common
    {
       //First Part
+        float Pow(float x, float n);
         float Pow(float x, int n);
+
         int Factorial(int x);
         float Abs(float x);
         float Mod(float x, float y);
@@ -18,6 +20,7 @@ namespace mdm{
 
         float Exp(float x);
         float Ln(float x);
+        double Ln(double x);
         float Log2(float x);
         float Log10(float x);
         float Ldexp(float x, int exponent);

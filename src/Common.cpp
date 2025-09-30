@@ -9,7 +9,94 @@
 namespace mdm{
    namespace Common
    {
+
+    //Tool Function
+    double int_pow(double x, long long n) {
+        double result = 1.0;
+        while (n > 0) {
+            if (n & 1) result *= x;
+            x *= x;
+            n >>= 1;
+        }
+        return result;
+    }
+
+    double nth_root(double x, int n, int iterations) {
+        if (x == 0.0) return 0.0;
+        double guess = x / n;
+        for (int i = 0; i < iterations; i++) {
+            double num = (n - 1) * guess + x / int_pow(guess, n - 1);
+            guess = num / n;
+        }
+        return guess;
+    }
+
+    int is_integer(double y) {
+        long long yi = (long long)y;
+        return (double)yi == y;
+    }
+
+    int is_odd_integer(long long y) {
+        return (y % 2 != 0);
+    }
+
+    void approximate_fraction_cf(double value, int max_den, long long *p, long long *q) {
+        long long n0 = 0, d0 = 1, n1 = 1, d1 = 0;
+        double x = value;
+        while (1) {
+            long long a = (long long)x;
+            long long n2 = a * n1 + n0;
+            long long d2 = a * d1 + d0;
+
+            if (d2 > max_den) break;
+
+            n0 = n1; d0 = d1;
+            n1 = n2; d1 = d2;
+
+            x = 1.0 / (x - a);
+            if (x > 1e9) break;
+        }
+
+        *p = n1;
+        *q = d1;
+    }
+
     //First Part
+    float Pow(float x, float y) {
+        if (y == 0.0) return 1.0;
+        if (x == 0.0) return (y > 0.0) ? 0.0 : 1e308; 
+
+        if (x < 0.0) {
+            if (!is_integer(y)) {
+                return 0.0 / 0.0; // NaN
+            }
+            long long yi = (long long)y;
+            double base = int_pow(-x, yi);
+            if (y < 0) base = 1.0 / base;
+            return is_odd_integer(yi) ? -base : base;
+        }
+
+        if (is_integer(y)) {
+            long long yi = (long long)y;
+            if (y < 0) return 1.0 / int_pow(x, -yi);
+            return int_pow(x, yi);
+        }
+
+        long long ipart = (long long)y;
+        double fpart = y - (double)ipart;
+
+        double result = (ipart >= 0) ? int_pow(x, ipart) : 1.0 / int_pow(x, -ipart);
+
+        long long p, q;
+        approximate_fraction_cf(fpart, 1000, &p, &q); // limits 1000
+
+        //x^(p/q) = (x^p)^(1/q)
+        double base = int_pow(x, p);
+        double root = nth_root(base, (int)q, 40);
+
+        return result * root;
+    }
+    
         float Pow(float x, int n)
         {
             float result = 1.0f;
@@ -20,7 +107,7 @@ namespace mdm{
             
             return result;
         }
-
+    
         int Factorial(int x)
         {
             int result = 1;
@@ -95,34 +182,54 @@ namespace mdm{
         }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
+
         float Exp(float x)
         {
-            float term = 1.0f;
-            float result = term;
-
-            for (int i = 0; i < 10; i++)
-            {
-                term *=  x / (float)(i + 1);
-                result += term;
-            }
-            
-            return result;
+            return Pow(MDM_E, x);
         }
 
         float Ln(float x)
         {
-            if(x <= 0.0f)
-                return 0.0f;
+            union { float d; unsigned long long int i; } vx = { x };
+            long long int exp = ((vx.i >> 23) & 0xFF) - 127;
+            vx.i = (vx.i & 0x7FFFFF) | 0x3F800000;
+            float y = vx.d;
 
-            float temp = (x - 1) / (x + 1);
-            float result = 0.0f;
-            
-            for (int i = 0; i < 43; i++)
-            {
-                result += (1.0f / (float)(2 * i + 1)) * Pow(temp, 2 * i + 1) ;
-            }
-            
-            return 2.0f * result;    
+            float t = (y - 1.0) / (y + 1.0);
+            float t2 = t * t;
+            float t3 = t2 * t;
+            float t5 = t3 * t2;
+            float t7 = t5 * t2;
+            float t9 = t7 * t2;
+            float t11 = t9 * t2;
+            float t13 = t11 * t2;
+
+            float ln_y = 2.0 * ( t + t3/3.0 + t5/5.0 + t7/7.0 + t9/9.0 + t11/11.0 + t13/13.0 );
+
+            float ln_x = ln_y + exp * MDM_LN2;
+            return ln_x;
+        }
+
+        double Ln(double x)
+        {
+            union { double d; unsigned long long int i; } vx = { x };
+            long long int exp = ((vx.i >> 52) & 0x7FF) - 1023;
+            vx.i = (vx.i & 0xFFFFFFFFFFFFFLLU) | 0x3FF0000000000000LLU;
+            double y = vx.d;
+
+            double t = (y - 1.0) / (y + 1.0);
+            double t2 = t * t;
+            double t3 = t2 * t;
+            double t5 = t3 * t2;
+            double t7 = t5 * t2;
+            double t9 = t7 * t2;
+            double t11 = t9 * t2;
+            double t13 = t11 * t2;
+
+            double ln_y = 2.0 * ( t + t3/3.0 + t5/5.0 + t7/7.0 + t9/9.0 + t11/11.0 + t13/13.0 );
+
+            double ln_x = ln_y + exp * (double)MDM_LN2;
+            return ln_x;
         }
 
         float Log2(float x)
