@@ -76,6 +76,13 @@ Equal(a, b);
 ToRadian(angle);
 ToAngle(radian);
 
+Added 2D, 3D, and 4D vectors as well as matrices
+DetMatrix: Calculate the determinant of a matrix
+IdentityMatrix: Get the identity matrix
+MatrixTranspose: Transpose matrix
+AdjointMatrix: Obtain the adjugate matrix of a matrix
+InvMatrix: Calculate the inverse matrix
+
 e^x = sigma x^n / n!
 
 y0 = 1.0f = x^0 / 0!
