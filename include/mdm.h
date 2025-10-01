@@ -232,6 +232,63 @@ namespace mdm{
     MATRIX AdjointMatrix(MATRIX m);
     MATRIX InvMatrix(MATRIX m);
   }
+
+  namespace Quaternion
+  {
+    typedef struct QUATERNION
+    {
+        QUATERNION(float _x = 0.0f, float _y = 0.0f, float _z = 0.0f, float _w = 1.0f);
+        float x, y, z, w;
+
+        QUATERNION operator + (const QUATERNION& q) const;
+        void operator += (const QUATERNION& q);
+        
+        QUATERNION operator - (const QUATERNION& q) const;
+        void operator -= (const QUATERNION& q);
+        
+        QUATERNION operator * (const QUATERNION& q) const;
+        void operator *= (const QUATERNION& q);
+        
+        QUATERNION operator * (float scalar) const;
+        void operator *= (float scalar);
+        
+        QUATERNION operator / (float scalar) const;
+        void operator /= (float scalar);
+        
+        bool operator == (const QUATERNION& q) const;
+        bool operator != (const QUATERNION& q) const;
+        
+        QUATERNION operator - () const;
+
+    } QUATERNION;
+  }
+
+  namespace Plane
+  {
+    typedef struct PLANE  
+    {
+        float a,b,c,d;
+    } PLANE;
+
+    PLANE PlaneFromPointAndNormal(Vector::Vec3 Point,Vector::Vec3 Normal);
+
+    PLANE PlaneFromPoints(Vector::Vec3 p0,
+                          Vector::Vec3 p1,
+                          Vector::Vec3 p2);
+									  
+    float PlaneDot(PLANE p, Vector::Vec3 v);
+  }
+
+  namespace Ray
+  {
+    typedef struct RAY
+    {
+        Vector::Vec3 p0,u;
+    } RAY;
+
+    Vector::Vec3 CreateRay(RAY ray,float t);
+    Vector::Vec3 Intersection(RAY ray, Plane::PLANE p);
+  }
 }
 
 #endif

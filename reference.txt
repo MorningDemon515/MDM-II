@@ -83,6 +83,8 @@ MatrixTranspose: Transpose matrix
 AdjointMatrix: Obtain the adjugate matrix of a matrix
 InvMatrix: Calculate the inverse matrix
 
+Plane Quaternion Ray
+
 e^x = sigma x^n / n!
 
 y0 = 1.0f = x^0 / 0!
