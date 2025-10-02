@@ -297,5 +297,14 @@ namespace mdm{
 			);
         return temp;
     }
+
+    Vec3 Cross(Vec3 v1, Vec3 v2)
+    {
+        Vec3 r;
+        r.x = v1.y * v2.z - v2.y * v1.z;
+        r.y = v1.z * v2.x - v2.z * v1.x;
+        r.z = v1.x * v2.y - v2.x * v1.y;
+        return r;
+    }
    }
 }

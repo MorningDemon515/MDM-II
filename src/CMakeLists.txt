@@ -8,6 +8,7 @@ add_library(MD_Math_II STATIC
     Matrix.cpp
     Quaternion.cpp
     Plane.cpp
-    Ray.cpp)
+    Ray.cpp
+    General.cpp)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../include)

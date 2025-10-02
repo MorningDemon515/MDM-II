@@ -85,6 +85,8 @@ InvMatrix: Calculate the inverse matrix
 
 Plane Quaternion Ray
 
+Mix, Normalize, Length..............
+
 e^x = sigma x^n / n!
 
 y0 = 1.0f = x^0 / 0!

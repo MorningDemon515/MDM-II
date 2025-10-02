@@ -10,6 +10,13 @@ using namespace Common;
 using namespace Vector;
 using namespace Matrix;
 
+void PrintVector3(Vec3 vec)
+{
+    printf("x: %f\n", vec.x);
+    printf("y: %f\n", vec.y);
+    printf("z: %f\n", vec.z);
+}
+
 void PrintMatrix(std::string text ,MATRIX m)
 {
     std::cout << text << std::endl;
@@ -21,20 +28,15 @@ void PrintMatrix(std::string text ,MATRIX m)
 
 int main()
 {
-    MATRIX m;
-    MATRIX m1, m2;
-    m1 = Identity(); m2 = MATRIX(
-        5.0f, 4.0f, 7.0f, 1.0f,
-        6.0f, 2.0f, 5.0f, 4.0f, 
-        2.0f, 1.0f, 5.0f, 2.0f,
-        3.0f, 1.0f, 3.0f, 1.0f
-    );
-    m = m2 * 0.2f;
-    PrintMatrix("Identity Matrix", m2 * Inverse(m2));
-    m2 *= Inverse(m2);
-    PrintMatrix("Identity Matrix", m2);
-    printf("%d\n", m1 != m2);
-    printf("%f\n", Det(m2));
+    Vec3 x(1.0f, 0.0f, 0.0f);
+    Vec3 y(0.0f, 1.0f, 0.0f);
+    Vec3 z;
+    z = Cross(x, y);
+    PrintVector3(z);
+    printf("\n");
+    PrintVector3(General::Normalize(z));
+    printf("\n");
+    printf("%f\n", General::Length(z));
     //system("pause");
 	return 0;
 }

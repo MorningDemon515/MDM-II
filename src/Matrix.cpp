@@ -299,7 +299,7 @@ namespace mdm{
         return temp;
     }
 
-    MATRIX IdentityMatrix()
+    MATRIX Identity()
     {
         return MATRIX(
             1.0f, 0.0f, 0.0f, 0.0f,
@@ -309,7 +309,7 @@ namespace mdm{
         );
     }
 
-    MATRIX MatrixTranspose(MATRIX m)
+    MATRIX Transpose(MATRIX m)
     {
         MATRIX r;
 
@@ -336,7 +336,7 @@ namespace mdm{
         return r;
     }   
 
-    MATRIX AdjointMatrix(MATRIX m)
+    MATRIX Adjoint(MATRIX m)
     {
         MATRIX rm;
         MATRIX adj;      
@@ -436,7 +436,7 @@ namespace mdm{
         return adj;
     }
 
-    MATRIX InvMatrix(MATRIX m)
+    MATRIX Inverse(MATRIX m)
     {
         MATRIX Inv,adj;
    
@@ -444,20 +444,32 @@ namespace mdm{
 
        if(Common::Abs(det) < MDM_EPSILON)
        {
-        return IdentityMatrix();
+        return Identity();
        }
 
        float _1det = 1.0f / det;
-       adj = AdjointMatrix(m);
+       adj = Adjoint(m);
 
        Inv = adj * _1det;
     
         return Inv;
     }
 
-    float DetMatrix(MATRIX m)
+    float Det(MATRIX m)
     {
         return DetMatrix4x4(m);
     }
+
+    Vector::Vec4 MulVector(Vector::Vec4 v, MATRIX m)
+    {
+        Vector::Vec4 temp(
+			v.x * m._11 + v.y * m._12 + v.z * m._13 + v.w * m._14,
+            v.x * m._21 + v.y * m._22 + v.z * m._23 + v.w * m._24,
+            v.x * m._31 + v.y * m._32 + v.z * m._33 + v.w * m._34,
+            v.x * m._41 + v.y * m._42 + v.z * m._43 + v.w * m._44
+			);
+        return temp;
+    }
+
     }
 }

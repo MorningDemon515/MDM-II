@@ -173,6 +173,8 @@ namespace mdm{
     IVECTOR2() : x(0), y(0){}
     IVECTOR2(int a, int b) : x(a), y(b){}
     } IVECTOR2;
+
+    Vec3 Cross(Vec3 v1, Vec3 v2);
    }
 
   namespace Matrix
@@ -226,11 +228,12 @@ namespace mdm{
 
     } MATRIX;
 
-    float DetMatrix(MATRIX m);
-    MATRIX IdentityMatrix();
-    MATRIX MatrixTranspose(MATRIX m);    
-    MATRIX AdjointMatrix(MATRIX m);
-    MATRIX InvMatrix(MATRIX m);
+    float Det(MATRIX m);
+    MATRIX Identity();
+    MATRIX Transpose(MATRIX m);    
+    MATRIX Adjoint(MATRIX m);
+    MATRIX Inverse(MATRIX m);
+    Vector::Vec4 MulVector(Vector::Vec4 v, MATRIX m);
   }
 
   namespace Quaternion
@@ -261,6 +264,21 @@ namespace mdm{
         QUATERNION operator - () const;
 
     } QUATERNION;
+
+    QUATERNION Conjugate(const QUATERNION& q);
+    QUATERNION Inverse(const QUATERNION& q);
+    float Dot(const QUATERNION& q1, const QUATERNION& q2);
+
+    QUATERNION FromAxisAngle(Vector::Vec3 axis, float angle);
+    QUATERNION FromEulerAngles(float pitch, float yaw, float roll);
+    QUATERNION FromMatrix(const Matrix::MATRIX& m);
+
+    Matrix::MATRIX MatrixFromQuaternion(const QUATERNION& q);
+    Vector::Vec3 EulerAnglesFromQuaternion(const QUATERNION& q);
+
+    Vector::Vec3 RotateVector(const QUATERNION& q, const Vector::Vec3& v);
+    QUATERNION Slerp(const QUATERNION& q1, const QUATERNION& q2, float t);
+    QUATERNION Lerp(const QUATERNION& q1, const QUATERNION& q2, float t);
   }
 
   namespace Plane
@@ -277,6 +295,7 @@ namespace mdm{
                           Vector::Vec3 p2);
 									  
     float PlaneDot(PLANE p, Vector::Vec3 v);
+    PLANE PlaneTransform(PLANE p, Matrix::MATRIX m);
   }
 
   namespace Ray
@@ -288,6 +307,34 @@ namespace mdm{
 
     Vector::Vec3 CreateRay(RAY ray,float t);
     Vector::Vec3 Intersection(RAY ray, Plane::PLANE p);
+  }
+
+  namespace General
+  {
+    float Mix(float x, float y, float a);
+    Vector::Vec2 Mix(const Vector::Vec2& x, const Vector::Vec2& y, float a);
+    Vector::Vec3 Mix(const Vector::Vec3& x, const Vector::Vec3& y, float a);
+    Vector::Vec4 Mix(const Vector::Vec4& x, const Vector::Vec4& y, float a);
+    Quaternion::QUATERNION Mix(const Quaternion::QUATERNION& q1, const Quaternion::QUATERNION& q2, float a);
+
+    float Length(Vector::Vec2 v);
+    float Length(Vector::Vec3 v);
+    float Length(Vector::Vec4 v);
+    float Length(const Quaternion::QUATERNION& q);
+
+    Vector::Vec2 Normalize(Vector::Vec2 v);
+    Vector::Vec3 Normalize(Vector::Vec3 v);
+    Vector::Vec4 Normalize(Vector::Vec4 v);
+    Quaternion::QUATERNION Normalize(const Quaternion::QUATERNION& q);
+    Plane::PLANE Normalize(Plane::PLANE p);
+
+    float ProjectionOfVector(Vector::Vec2 v1, Vector::Vec2 v2);
+    float ProjectionOfVector(Vector::Vec3 v1, Vector::Vec3 v2);
+    float ProjectionOfVector(Vector::Vec4 v1, Vector::Vec4 v2);
+
+    Vector::Vec2 ProjectionVector(Vector::Vec2 v1, Vector::Vec2 v2);
+    Vector::Vec3 ProjectionVector(Vector::Vec3 v1, Vector::Vec3 v2);
+    Vector::Vec4 ProjectionVector(Vector::Vec4 v1, Vector::Vec4 v2);
   }
 }
 
