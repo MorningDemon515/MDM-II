@@ -336,6 +336,27 @@ namespace mdm{
     Vector::Vec3 ProjectionVector(Vector::Vec3 v1, Vector::Vec3 v2);
     Vector::Vec4 ProjectionVector(Vector::Vec4 v1, Vector::Vec4 v2);
   }
+
+  namespace Transform
+  {
+    Matrix::MATRIX ScaleMatrix(float x, float y, float z);
+    Matrix::MATRIX TranslationMatrix(float x, float y, float z);
+    Matrix::MATRIX RotationMatrix(float Angle, char Axis);
+	
+    Matrix::MATRIX PerspectiveMatrixRH(float fovy, float aspect, float zNear, float zFar);	
+    Matrix::MATRIX OrthoMatrixRH(float l, float r, float b, float t, float n, float f);	
+    Matrix::MATRIX ViewMatrixRH(Vector::Vec3 eye, Vector::Vec3 target, Vector::Vec3 up);	
+	
+    Matrix::MATRIX PerspectiveMatrixLH(float fovy, float aspect, float zNear, float zFar);
+    Matrix::MATRIX OrthoMatrixLH(float l, float r, float b, float t, float n, float f);
+    Matrix::MATRIX ViewMatrixLH(Vector::Vec3 eye, Vector::Vec3 target, Vector::Vec3 up);
+
+    Matrix::MATRIX ReflectMatrix(Plane::PLANE p);	
+    Matrix::MATRIX ShadowMatrix(Vector::Vec3 Light, Plane::PLANE p);	
+
+    Matrix::MATRIX NormalMatrix(Matrix::MATRIX model);
+    Matrix::MATRIX BillboardMatrix(const Vector::Vec3& position, const Matrix::MATRIX& view);
+  }
 }
 
 #endif
