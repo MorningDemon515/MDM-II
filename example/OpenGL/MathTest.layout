@@ -1,0 +1,51 @@
+[
+    {
+        "caretX": 75,
+        "caretY": 172,
+        "filename": "D:/_/MDM-II/example/OpenGL/src/Graphics_GL.cpp",
+        "focused": true,
+        "isOpen": true,
+        "left": 0,
+        "order": 2,
+        "top": 3240
+    },
+    {
+        "caretX": 23,
+        "caretY": 256,
+        "filename": "D:/_/MDM-II/src/Quaternion.cpp",
+        "focused": false,
+        "isOpen": true,
+        "left": 0,
+        "order": 3,
+        "top": 4740
+    },
+    {
+        "caretX": 1,
+        "caretY": 1,
+        "filename": "D:/_/MDM-II/example/OpenGL/src/Shader_GL.cpp",
+        "focused": false,
+        "isOpen": true,
+        "left": 0,
+        "order": 1,
+        "top": 0
+    },
+    {
+        "caretX": 1,
+        "caretY": 1,
+        "filename": "D:/_/MDM-II/example/OpenGL/src/Main.h",
+        "focused": false,
+        "isOpen": false,
+        "left": 0,
+        "top": 0
+    },
+    {
+        "caretX": 1,
+        "caretY": 1,
+        "filename": "D:/_/MDM-II/example/OpenGL/src/Main.cpp",
+        "focused": false,
+        "isOpen": true,
+        "left": 0,
+        "order": 0,
+        "top": 240
+    }
+]
