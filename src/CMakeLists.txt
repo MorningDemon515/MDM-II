@@ -9,6 +9,7 @@ add_library(MD_Math_II STATIC
     Quaternion.cpp
     Plane.cpp
     Ray.cpp
-    General.cpp)
+    General.cpp
+    Transform.cpp)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../include)

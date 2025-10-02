@@ -37,6 +37,16 @@ int main()
     PrintVector3(General::Normalize(z));
     printf("\n");
     printf("%f\n", General::Length(z));
+    printf("\n");
+
+    Vec3 v(1.0f, 2.0f, 0.0f);
+    Vec4 r_v = Matrix::MulVector(Vec4(v.x, v.y, v.z, 1.0f) ,Transform::PerspectiveMatrixLH(
+        Common::ToRadian(90.0f), 800.0f / 600.0f, 0.1f, 100.0f
+    ) * Transform::ViewMatrixLH(Vec3(0.0f, 0.0f, -1.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 1.0f, 0.0f)) * Matrix::Identity());
+
+    PrintVector3(Vec3(r_v.x, r_v.y, r_v.z));
+
+
     //system("pause");
 	return 0;
 }
