@@ -1,4 +1,6 @@
 build
+Release
+Debug
 
 # Prerequisites
 *.d
@@ -32,7 +34,7 @@ build
 *.lai
 *.la
 *.a
-*.lib
+# *.lib
 
 # Executables
 *.exe

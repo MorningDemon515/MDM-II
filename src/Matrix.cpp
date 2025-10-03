@@ -60,29 +60,13 @@ namespace mdm{
 
         MATRIX MATRIX::operator + (const MATRIX& m2)
         {
-            MATRIX temp = {
-		    	_11 + m2._11,
-                _21 + m2._21,
-                _31 + m2._31,
-                _41 + m2._41,
+            return MATRIX(
+		    	_11 + m2._11, _12 + m2._12, _13 + m2._13, _14 + m2._14,
+                _21 + m2._21, _22 + m2._22, _23 + m2._23, _24 + m2._24,
+                _31 + m2._31, _32 + m2._32, _33 + m2._33, _34 + m2._34,
+                _41 + m2._41, _42 + m2._42, _43 + m2._43, _44 + m2._44
+		    );
 
-                _12 + m2._12,
-                _22 + m2._22,
-                _32 + m2._32,
-                _42 + m2._42,
-    
-                _13 + m2._13,
-                _23 + m2._23,
-                _33 + m2._33,
-                _43 + m2._43,
-
-                _14 + m2._14,
-                _24 + m2._24,
-                _34 + m2._34,
-                _44 + m2._44
-		    };
-
-            return temp;
         }  
 
     void MATRIX::operator += (const MATRIX& m2)
@@ -110,28 +94,13 @@ namespace mdm{
 
     MATRIX MATRIX::operator - (const MATRIX& m2)
     {
-		MATRIX temp = {
-			_11 - m2._11,
-            _21 - m2._21,
-            _31 - m2._31,
-            _41 - m2._41,
+		return MATRIX(
+			_11 - m2._11, _12 - m2._12, _13 - m2._13, _14 - m2._14,
+            _21 - m2._21, _22 - m2._22, _23 - m2._23, _24 - m2._24,
+            _31 - m2._31, _32 - m2._32, _33 - m2._33, _34 - m2._34,
+            _41 - m2._41, _42 - m2._42, _43 - m2._43, _44 - m2._44
 
-            _12 - m2._12,
-            _22 - m2._22,
-            _32 - m2._32,
-            _42 - m2._42,
-    
-            _13 - m2._13,
-            _23 - m2._23,
-            _33 - m2._33,
-            _43 - m2._43,
-
-            _14 - m2._14,
-            _24 - m2._24,
-            _34 - m2._34,
-            _44 - m2._44
-		};
-        return temp;
+		);
     }   
 
     void MATRIX::operator -= (const MATRIX& m2)
@@ -193,13 +162,12 @@ namespace mdm{
 
     MATRIX MATRIX::operator * (const float& f)
     {
-		MATRIX temp = {
+		return MATRIX(
 			f * _11, f * _12, f * _13, f * _14,
             f * _21, f * _22, f * _23, f * _24,
             f * _31, f * _32, f * _33, f * _34,
             f * _41, f * _42, f * _43, f * _44     
-		};
-        return temp;
+		);
     }
 
     void MATRIX::operator *= (const float& f)
@@ -290,13 +258,12 @@ namespace mdm{
 
     MATRIX MATRIX::operator - ()
     {
-		MATRIX temp = {
+		return MATRIX(
 			-1.0f * _11, -1.0f * _12, -1.0f * _13, -1.0f * _14,
             -1.0f * _21, -1.0f * _22, -1.0f * _23, -1.0f * _24,
             -1.0f * _31, -1.0f * _32, -1.0f * _33, -1.0f * _34,
             -1.0f * _41, -1.0f * _42, -1.0f * _43, -1.0f * _44
-		};
-        return temp;
+		);
     }
 
     MATRIX Identity()

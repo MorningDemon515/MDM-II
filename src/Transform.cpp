@@ -6,57 +6,50 @@ namespace mdm
     {
         Matrix::MATRIX ScaleMatrix(float x, float y, float z)
         {
-            Matrix::MATRIX r = {
+            return Matrix::MATRIX(
             x,0.0f,0.0f,0.0f,
             0.0f,y,0.0f,0.0f,
             0.0f,0.0f,z,0.0f,
             0.0f,0.0f,0.0f,1.0f
-            };
-
-            return r;
+            );
         }
 
         Matrix::MATRIX TranslationMatrix(float x, float y, float z)
         {
-            Matrix::MATRIX r = {
+            return Matrix::MATRIX(
             1.0f, 0.0f ,0.0f ,x,
             0.0f, 1.0f, 0.0f, y,
             0.0f, 0.0f, 1.0f ,z,
             0.0f, 0.0f, 0.0f ,1.0f
-            };
-
-            return r;
+            );
         }
 
         Matrix::MATRIX RotationMatrix(Vector::Vec3 Axis ,float Angle)
         {
             if(Axis == Vector::Vec3(1.0f, 0.0f, 0.0f))
 	        {
-		        Matrix::MATRIX xr = {
+		        return Matrix::MATRIX(
 			        1.0f, 0.0f, 0.0f, 0.0f,
 			        0.0f, Common::Cos(Angle),(-1) * Common::Sin(Angle), 0.0f,
 		    	    0.0f, Common::Sin(Angle),Common::Cos(Angle), 0.0f,
 		    	    0.0f, 0.0f, 0.0f, 1.0f
-		        };
-		        return xr;
+		        );
 	        }
 	        else if(Axis == Vector::Vec3(0.0f, 1.0f, 0.0f)){
-		        Matrix::MATRIX yr = {
+		        return Matrix::MATRIX(
 		    	    Common::Cos(Angle), 0.0f, Common::Sin(Angle), 0.0f,
 		    	    0.0f , 1.0f , 0.0f, 0.0f ,
 	    		    (-1) * Common::Sin(Angle), 0.0f, Common::Cos(Angle), 0.0f,
 		    	    0.0f, 0.0f, 0.0f, 1.0f
-		        };
-	    	    return yr;
+		        );
 	        }
 	        else if(Axis == Vector::Vec3(0.0f, 0.0f, 1.0f)){
-		        Matrix::MATRIX zr = {
+		        return Matrix::MATRIX(
 		    	    Common::Cos(Angle), (-1) * Common::Sin(Angle) , 0.0f, 0.0f,
 		    	    Common::Sin(Angle), Common::Cos(Angle), 0.0f, 0.0f,
 		    	    0.0f, 0.0f, 1.0f, 0.0f,
 		    	    0.0f, 0.0f, 0.0f ,1.0f
-		        };
-		        return zr;
+		        );
 	        }
 	        else
 	        {
@@ -305,26 +298,26 @@ namespace mdm
 
         Matrix::MATRIX BillboardMatrix(const Vector::Vec3& position, const Matrix::MATRIX& view)
         {
-            Matrix::MATRIX translation = {
+            Matrix::MATRIX translation(
         1.0f, 0.0f, 0.0f, position.x,
         0.0f, 1.0f, 0.0f, position.y,
         0.0f, 0.0f, 1.0f, position.z,
         0.0f, 0.0f, 0.0f, 1.0f
-    };
+    );
     
-    Matrix::MATRIX rotation = {
+    Matrix::MATRIX rotation(
         view._11, view._12, view._13, 0.0f,
         view._21, view._22, view._23, 0.0f,
         view._31, view._32, view._33, 0.0f,
         0.0f,    0.0f,    0.0f,    1.0f
-    };
+    );
     
-    Matrix::MATRIX invRotation = {
+    Matrix::MATRIX invRotation(
         rotation._11, rotation._21, rotation._31, 0.0f,
         rotation._12, rotation._22, rotation._32, 0.0f,
         rotation._13, rotation._23, rotation._33, 0.0f,
         0.0f,        0.0f,        0.0f,        1.0f
-    };
+    );
     
     return translation * invRotation;
         }

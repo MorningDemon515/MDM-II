@@ -1,13 +1,12 @@
 [
     {
-        "caretX": 75,
-        "caretY": 172,
-        "filename": "D:/_/MDM-II/example/OpenGL/src/Graphics_GL.cpp",
-        "focused": true,
-        "isOpen": true,
+        "caretX": 1,
+        "caretY": 1,
+        "filename": "D:/_/MDM-II/example/OpenGL/src/Main.h",
+        "focused": false,
+        "isOpen": false,
         "left": 0,
-        "order": 2,
-        "top": 3240
+        "top": 0
     },
     {
         "caretX": 23,
@@ -30,13 +29,14 @@
         "top": 0
     },
     {
-        "caretX": 1,
-        "caretY": 1,
-        "filename": "D:/_/MDM-II/example/OpenGL/src/Main.h",
-        "focused": false,
-        "isOpen": false,
+        "caretX": 75,
+        "caretY": 172,
+        "filename": "D:/_/MDM-II/example/OpenGL/src/Graphics_GL.cpp",
+        "focused": true,
+        "isOpen": true,
         "left": 0,
-        "top": 0
+        "order": 2,
+        "top": 3240
     },
     {
         "caretX": 1,

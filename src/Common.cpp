@@ -11,7 +11,7 @@ namespace mdm{
    {
 
     //Tool Function
-    double int_pow(double x, long long n) {
+    double int_pow(double x, __int64 n) {
         double result = 1.0;
         while (n > 0) {
             if (n & 1) result *= x;
@@ -32,21 +32,21 @@ namespace mdm{
     }
 
     int is_integer(double y) {
-        long long yi = (long long)y;
+        __int64 yi = (__int64)y;
         return (double)yi == y;
     }
 
-    int is_odd_integer(long long y) {
+    int is_odd_integer(__int64 y) {
         return (y % 2 != 0);
     }
 
-    void approximate_fraction_cf(double value, int max_den, long long *p, long long *q) {
-        long long n0 = 0, d0 = 1, n1 = 1, d1 = 0;
+    void approximate_fraction_cf(double value, int max_den, __int64 *p, __int64 *q) {
+        __int64 n0 = 0, d0 = 1, n1 = 1, d1 = 0;
         double x = value;
         while (1) {
-            long long a = (long long)x;
-            long long n2 = a * n1 + n0;
-            long long d2 = a * d1 + d0;
+            __int64 a = (__int64)x;
+            __int64 n2 = a * n1 + n0;
+            __int64 d2 = a * d1 + d0;
 
             if (d2 > max_den) break;
 
@@ -68,26 +68,26 @@ namespace mdm{
 
         if (x < 0.0) {
             if (!is_integer(y)) {
-                return 0.0 / 0.0; // NaN
+                return 0.0; // NaN
             }
-            long long yi = (long long)y;
+            __int64 yi = (__int64)y;
             double base = int_pow(-x, yi);
             if (y < 0) base = 1.0 / base;
             return is_odd_integer(yi) ? -base : base;
         }
 
         if (is_integer(y)) {
-            long long yi = (long long)y;
+            __int64 yi = (__int64)y;
             if (y < 0) return 1.0 / int_pow(x, -yi);
             return int_pow(x, yi);
         }
 
-        long long ipart = (long long)y;
+        __int64 ipart = (__int64)y;
         double fpart = y - (double)ipart;
 
         double result = (ipart >= 0) ? int_pow(x, ipart) : 1.0 / int_pow(x, -ipart);
 
-        long long p, q;
+        __int64 p, q;
         approximate_fraction_cf(fpart, 1000, &p, &q); // limits 1000
 
         //x^(p/q) = (x^p)^(1/q)
@@ -190,8 +190,8 @@ namespace mdm{
 
         float Ln(float x)
         {
-            union { float d; unsigned long long int i; } vx = { x };
-            long long int exp = ((vx.i >> 23) & 0xFF) - 127;
+            union { float d; unsigned __int64 i; } vx = { x };
+            __int64 exp = ((vx.i >> 23) & 0xFF) - 127;
             vx.i = (vx.i & 0x7FFFFF) | 0x3F800000;
             float y = vx.d;
 
@@ -212,9 +212,9 @@ namespace mdm{
 
         double Ln(double x)
         {
-            union { double d; unsigned long long int i; } vx = { x };
-            long long int exp = ((vx.i >> 52) & 0x7FF) - 1023;
-            vx.i = (vx.i & 0xFFFFFFFFFFFFFLLU) | 0x3FF0000000000000LLU;
+            union { double d; unsigned __int64 i; } vx = { x };
+            __int64 exp = ((vx.i >> 52) & 0x7FF) - 1023;
+            vx.i = (vx.i & (unsigned __int64)0xFFFFFFFFFFFFF) | (unsigned __int64)0x3FF0000000000000;
             double y = vx.d;
 
             double t = (y - 1.0) / (y + 1.0);
@@ -468,14 +468,14 @@ namespace mdm{
 
         float PosInf()
         {
-            long long unsigned int pos_inf_bits = 0x7FF0000000000000;
+            unsigned __int64 pos_inf_bits = 0x7FF0000000000000;
             double pos_inf = *reinterpret_cast<double*>(&pos_inf_bits);
             return (float)pos_inf;
         }
 
         float NegInf()
         {
-            long long unsigned int neg_inf_bits = 0xFFF0000000000000;
+            unsigned __int64 neg_inf_bits = 0xFFF0000000000000;
             double neg_inf = *reinterpret_cast<double*>(&neg_inf_bits);
             return (float)neg_inf;
         }
