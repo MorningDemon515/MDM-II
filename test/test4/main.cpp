@@ -45,7 +45,17 @@ int main()
     ) * Transform::ViewMatrixLH(Vec3(0.0f, 0.0f, -1.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 1.0f, 0.0f)) * Matrix::Identity());
 
     PrintVector3(Vec3(r_v.x, r_v.y, r_v.z));
+    
+    printf("\n");
+    Vector::Vec3 axis(0.0f, 1.0f, 0.0f);
+    float angle = MDM_PI_2;
+    Quaternion::QUATERNION rotation = Quaternion::FromAxisAngle(axis, angle);
 
+    Vector::Vec3 originalVector(1.0f, 0.0f, 0.0f); 
+
+    Vector::Vec3 rotatedVector = Quaternion::RotateVector(rotation, originalVector);
+
+    PrintVector3(rotatedVector);
 
     //system("pause");
 	return 0;
